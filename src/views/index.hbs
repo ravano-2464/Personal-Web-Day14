@@ -123,10 +123,12 @@
                     <th>Project Name</th>
                     <th>Year</th>
                 </tr>
+                 {{#each data.projectName}}
                 <tr>
-                    <td>Personal Web</td>
-                    <td>2023</td>
+                    <td>{{this}}</td>
+                    <td>{{lookup ../data.year @index}}</td>
                 </tr>
+                {{/each}}
             </table>
             <br>
             </div>

@@ -78,6 +78,42 @@
         </div>
     </nav>
 
+ <div class="container d-flex flex-column">
+        <div class="w-100 d-flex justify-content-end mb-3">
+            <a href="/add-My-Project" class="btn btn-primary">Add New My Project</a>
+        </div>
+        <div id="contents">
+            {{#each data}}
+            <div class="card mb-3 w-100">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="/assets/image/{{this.image}}" class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="/blog-detail/{{this.id}}" target="_blank">{{this.title}}</a>
+                            </h5>
+                            <p>
+                                {{this.createdAt}} | {{this.author}}
+                            </p>
+                            <p class="card-text">{{this.content}}</p>
+                            <p class="card-text"><small class="text-body-secondary">1 seconds ago
+                                </small></p>
+                        </div>
+                    </div>
+                    <div class="col-md-2 d-flex" style="height: fit-content;">
+                        <a href="/update-blog/{{this.id}}" class="btn btn-secondary">Edit Post My Project</a>
+                        <form method="post" action="/delete-blog/{{this.id}}">
+                            <button class="btn btn-primary">Delete Post My Project</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+
     <div class="Blog">
         <div class="Blog-form">
             <div class="form-container">
