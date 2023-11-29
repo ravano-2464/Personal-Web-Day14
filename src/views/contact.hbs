@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Me</title>
+    <link rel="stylesheet" href="/assets/css/contact.css" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/index.css" />
+    <style>
+        .nav-link.Blog a {
+            white-space: nowrap;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <nav style="background-color: #f4f3f3; height: 75px;">
+        <div style="display: flex; align-items: center; height: 100%; margin-left: 30px; margin-right: 30px;">
+            <ul style="display: flex; list-style-type: none; gap: 50px; align-items: center;">
+                <li>
+                    <img src="/assets/image/dumbways.png" style="height: 50px;" alt="Dumbways Logo" />
+                </li>
+                <li class="nav-link nav-collapse">
+                    <a href="/">
+                        Home
+                    </a>
+                </li>
+                <li class="nav-link nav-collapse">
+                    <a href="/My-Project">
+                        My Project
+                    </a>
+                </li>
+                <li class="nav-link nav-collapse">
+                    <a href="/testimonial">
+                        Testimonials
+                    </a>
+                </li>
+            </ul>
+            <div style="display: flex; width: 100%; justify-content: flex-end;">
+                <a href="/contact" class="btn-contact">Contact Me</a>
+            </div>
+        </div>
+    </nav>
+
+    <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+        <h1 style="font-family: monospace; font-size: 24px; margin-top: 20px;">GET IN TOUCH</h1>
+        <form id="contactForm" action="#" method="post">
+            <div style="display: flex; flex-direction: column; width: 300px;">
+                <label class="label-contact">Name</label>
+                <input type="text" class="input-contact" name="Name" id="inputName" />
+                <label class="label-contact">Email</label>
+                <input type="text" class="input-contact" name="Email" id="inputEmail" />
+                <label class="label-contact">Phone number</label>
+                <input type="text" class="input-contact" name="Phone" id="inputPhone" />
+                <label class="label-contact">Subject</label>
+                <select class="input-contact" name="Subject" id="inputSubject">
+                    <option>Frontend Developer</option>
+                    <option>Backend Developer</option>
+                    <option>Fullstack Developer</option>
+                </select>
+                <label class="label-contact">Your message</label>
+                <textarea class="input-contact" name="Message" id="inputMessage"></textarea>
+                <input type="button" value="Submit" class="btn-submit" onclick="submitData()" />
+            </div>
+        </form>
+    </div>
+
+    <script src="/assets/js/nav.js"></script>
+    <script src="/assets/js/contact.js"></script>
+</body>
+
+</html>

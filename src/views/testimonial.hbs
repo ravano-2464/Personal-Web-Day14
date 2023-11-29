@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Testimonials</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="/assets/css/testimonial.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <nav style="background-color: #f4f3f3; height: 75px;">
+        <div style="display: flex; align-items: center; height: 100%; margin-left: 30px; margin-right: 30px;">
+            <ul style="display: flex; list-style-type: none; gap: 50px; align-items: center;">
+                <li>
+                    <img src="/assets/image/dumbways.png" style="height: 50px;" alt="Dumbways" />
+                </li>
+               <li class="nav-link nav-collapse">
+                    <a href="/">
+                        Home
+                    </a>
+                </li>
+                <li class="nav-link nav-collapse">
+                    <a href="/My-Project">
+                        My Project
+                    </a>
+                </li>
+                <li class="nav-link nav-collapse">
+                    <a href="/testimonial">
+                        Testimonials
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="nav-right item-collapse">
+            <a href="/contact">Contact Me</a>
+        </div>
+        <div class="nav-right" id="barsmenu">
+            <button style="background-color: transparent; border: none; cursor: pointer;" onclick="openHamburger();">
+                <i class="fa-2x fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+    
+    <div class="hamburger-nav-container" id="hamburger-nav-container">
+        <a href="/">Home</a>
+        <a href="/My-Project">My Project</a>
+        <a href="/testimonial" class="hamburger-active">Testimonials</a>
+        <a href="/contact">Contact Me</a>
+    </div>
+
+    <div class="container">
+        <h1>My Testimonials</h1>
+        <div class="container-rating">
+            <h2> Rating By Star</h2>
+            <div class="rating">
+                <button class="rating-btn" onclick="allTestimonials()">
+                    All
+                </button>
+                <button class="rating-btn" onclick="filterTestimonials(1);">
+                    1 <i class="fa-solid fa-star"></i>
+                </button>
+                <button class="rating-btn" onclick="filterTestimonials(2);">
+                    2 <i class="fa-solid fa-star"></i>
+                </button>
+                <button class="rating-btn" onclick="filterTestimonials(3);">
+                    3 <i class="fa-solid fa-star"></i>
+                </button>
+                <button class="rating-btn" onclick="filterTestimonials(4);">
+                    4 <i class="fa-solid fa-star"></i>
+                </button>
+                <button class="rating-btn" onclick="filterTestimonials(5);">
+                    5 <i class="fa-solid fa-star"></i>
+                </button>
+            </div>
+        </div>
+        <section class="testimonials" id="testimonials">
+            <!-- <div class="testimonial">
+                <img src="/assets/profile/profile.png" class="profile-testimonial" />
+                <p class="quote">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eget lectus eu
+                    libero venenatis gravida eget vel odio."</p>
+                <p class="author">- Ravano Akbar Widodo</p>
+            </div> -->
+        </section>
+       </div>
+    </div>
+    
+    <script src="/assets/js/nav.js"></script>
+    <script src="/assets/js/index.js"></script>
+    <script src="/assets/js/ajax.js"></script>
+</body>
+
+</html>

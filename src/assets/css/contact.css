@@ -1,0 +1,20 @@
+.label-contact {
+    font-weight: bold; 
+    font-size: 15px;
+}
+
+.input-contact {
+    padding: 5px; 
+    border-radius: 10px; 
+    background-color: white;  
+    border-color: #d9d9d9;
+    margin-bottom: 10px;
+}
+
+.btn-submit {
+    background-color: gray;
+    color: white;
+    padding: 10px;
+    width: 100px;
+    border-radius: 10px;
+}

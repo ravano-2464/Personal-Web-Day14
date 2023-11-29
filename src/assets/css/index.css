@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+* {
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.btn-contact,
+.btn-submit {
+    background-color: #f7f7f7;
+    color: #333;
+    padding: 10px;
+    width: 130px;
+    font-size: 16px;
+    border-radius: 10px;
+    text-decoration: none;
+    text-align: center;
+    border: 2px solid #333;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-contact:hover,
+.btn-submit:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+.nav-link {
+    font-size: 25px;
+}
+
+.nav-link a {
+    color: black;
+    text-decoration: none;
+}
+
+.nav-link a:hover {
+    color: orangered;
+}
