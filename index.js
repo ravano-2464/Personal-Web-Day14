@@ -43,7 +43,7 @@ app.use(
 );
 app.use(flash());
 
-const models = require('./src/assets/models/');
+const models = require('./src/assets/models/myproject.js');
 Object.values(models).forEach((model) => {
   if (model.associate) {
     model.associate(models);
