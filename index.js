@@ -11,6 +11,18 @@ const port = 7000;
 const { development } = require('./src/assets/config/config.json');
 const SequelizePool = new Sequelize(development);
 
+app.get('/', home);
+app.get('/contact', contact);
+app.get('/My-Project', MyProject);
+app.get('/add-My-Project', addMyProjectView);
+app.post('/add-My-Project', addMyProject);
+app.get('/My-Project-detail/:id', MyProjectDetail);
+app.get('/testimonial', testimonials);
+app.get('/update-My-Project/:id', updateMyProjectView);
+app.post('/update-My-Project/:id', updateMyProject);
+app.get('/delete-My-Project/:id', deleteMyProject);
+app.post('/delete-My-Project/:id', deleteMyProject);
+
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'src/views'));
 
@@ -31,7 +43,7 @@ app.use(
 );
 app.use(flash());
 
-const models = require('./src/assets/models/myproject.js');
+const models = require('./src/assets/models/');
 Object.values(models).forEach((model) => {
   if (model.associate) {
     model.associate(models);
@@ -74,7 +86,7 @@ function addMyProjectView(req, res) {
 
 async function addMyProject(req, res) {
   try {
-    const { projectName, startDate, endDate, description, duration} = req.body;
+    const { projectName, startDate, endDate, description, techIcon, duration} = req.body;
 
     const dateOne = new Date(startDate);
     const dateTwo = new Date(endDate);
@@ -97,7 +109,7 @@ async function addMyProject(req, res) {
       `INSERT INTO myproject(project_name, start_date,end_date,description,technologies, "createdAt", "updatedAt",duration) 
       VALUES ('${projectName}','${startDate}','${endDate}' ,'${description}','{${techIcon}}',NOW(), NOW(), '${duration}')`
     );
-    res.redirect('/');
+    res.redirect('/My-Project');
   } catch (error) {
     throw error;
   }
@@ -146,18 +158,6 @@ async function deleteMyProject(req, res) {
 
   res.redirect('/');
 }
-
-app.get('/', home);
-app.get('/contact', contact);
-app.get('/My-Project', MyProject);
-app.get('/add-My-Project', addMyProjectView);
-app.post('/add-My-Project', addMyProject);
-app.get('/My-Project-detail/:id', MyProjectDetail);
-app.get('/testimonial', testimonials);
-app.get('/update-My-Project/:id', updateMyProjectView);
-app.post('/update-My-Project/:id', updateMyProject);
-app.get('/delete-My-Project/:id', deleteMyProject);
-app.post('/delete-My-Project/:id', deleteMyProject);
 
 app.listen(port, () => {
   console.log(`Server Berjalan Di Port ${port}`);
