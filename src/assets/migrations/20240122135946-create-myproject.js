@@ -1,5 +1,6 @@
 'use strict';
 /** @type {import('sequelize-cli').Migration} */
+const { STRING } = require("sequelize");
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('myproject', {
@@ -9,16 +10,31 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      projectName: {
+      project_Name: {
+        allowNull: false,
         type: Sequelize.STRING
+      },
+      start_date: {
+        allowNull: false,
+        type: Sequelize.DATEONLY
+      },
+      end_date: {
+        allowNull: false,
+        type: Sequelize.DATEONLY
       },
       description: {
-        type: Sequelize.STRING
+        allowNull: false,
+        type: Sequelize.TEXT
       },
       technologies: {
-        type: Sequelize.STRING
+        allowNull: false,
+        type: Sequelize.ARRAY(STRING),
       },
       image: {
+        type: Sequelize.STRING
+      },
+      duration: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       createdAt: {

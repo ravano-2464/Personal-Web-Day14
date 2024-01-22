@@ -14,13 +14,16 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   myproject.init({
-    projectName: DataTypes.STRING,
+    project_Name: DataTypes.STRING,
+    start_date: DataTypes.STRING,
+    end_date: DataTypes.STRING,
     description: DataTypes.STRING,
     technologies: DataTypes.STRING,
-    image: DataTypes.STRING
+    image: DataTypes.STRING,
+    duration: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'my-project',
+    modelName: 'myproject',
   });
   return myproject;
 };
