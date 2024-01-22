@@ -22,7 +22,6 @@
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-
 .btn-contact:hover,
 .btn-submit:hover {
     background-color: #333;
@@ -30,11 +29,13 @@
 }
 
 .nav-link {
-    font-size: 20px;
+    font-size: 25px;
 }
 
 .nav-link a {
-    color: #333;
+    color: black;
+    white-space: nowrap;
+    display: block;
     text-decoration: none;
 }
 
@@ -42,31 +43,75 @@
     color: orangered;
 }
 
-.Blog-form {
+.checkbox {
+    white-space: nowrap;
+    display: block;
+}
+
+.My-Project-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+   }
+    
+    .text-checkbox {
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+   }
+
+    .checkbox div {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+   }
+
+    .checkbox input {
+        margin-right: 8px;
+   }
+
+    .form-container {
+        max-width: 600px;
+        margin: auto;
+   }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+   }
+
+    .button-group {
+        text-align: center;
+   }
+
+.My-Project-form {
     padding: 50px 0;
     display: flex;
     justify-content: center;
 }
 
-.Blog-form .form-container {
+.My-Project-form .form-container {
     width: 80%;
     max-width: 600px;
 }
 
-.Blog-form .form-container h1 {
+.My-Project-form .form-container h1 {
     text-align: center;
     margin-bottom: 40px;
 }
 
-.Blog-form form label {
+.My-Project-form form label {
     font-size: 18px;
     font-weight: 400;
 }
 
-.Blog-form form input,
-.Blog-form form textarea,
-.Blog-form form select,
-.Blog-form form .input-Blog-image-group {
+.My-Project-form form input,
+.My-Project-form form textarea,
+.My-Project-form form select,
+.My-Project-form form .input-My-Project-image-group {
     width: 100%;
     font-size: 16px;
     font-weight: 400;
@@ -78,50 +123,51 @@
     border-radius: 8px;
 }
 
-.Blog-form form textarea {
+.My-Project-form form textarea {
     height: 150px;
 }
 
-.Blog-form form .input-Blog-image-group label p {
+.My-Project-form form .input-My-Project-image-group label p {
     font-size: 14px;
 }
 
-.Blog-form form .input-Blog-image-group label {
+.My-Project-form form .input-My-Project-image-group label {
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.Blog-form form .button-group {
+.My-Project-form form .button-group {
     text-align: right;
 }
 
-.Blog-form form button {
-    margin-top: 20px;
-    padding: 8px 20px;
+.My-Project-form form button {
+    background-color: #f7f7f7;
+    color: #333;
+    padding: 10px;
+    width: 130px;
     font-size: 16px;
-    background: #333;
-    border-radius: 8px;
-    border: none;
-    color: #fff;
-    cursor: pointer;
+    border-radius: 10px;
+    text-decoration: none;
+    text-align: center;
+    border: 2px solid #333;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.Blog-form form button:hover {
-    background-color: #f7f7f7;
-    color: #333;
+.My-Project-form form button:hover {
+    background-color: #333;
+    color: #fff;
 }
 
-.Blog hr {
+.My-Project hr {
     border: 1px solid #ddd;
     width: 80%;
     margin-right: auto;
     margin-left: auto;
 }
 
-.Blog .Blog-list {
+.My-Project .My-Project-list {
     margin-top: 40px;
     margin-bottom: 40px;
     display: flex;
@@ -129,7 +175,7 @@
     flex-direction: column;
 }
 
-.Blog .Blog-list .Blog-list-item {
+.My-Project .My-Project-list .My-Project-list-item {
     width: 80%;
     max-width: 800px;
     padding: 15px;
@@ -140,63 +186,63 @@
     flex-wrap: wrap;
 }
 
-.Blog .Blog-list .Blog-list-item .Blog-image {
+.My-Project .My-Project-list .My-Project-list-item .My-Project-image {
     flex: 1;
 }
 
-.Blog .Blog-list .Blog-list-item .Blog-image img {
+.My-Project .My-Project-list .My-Project-list-item .My-Project-image img {
     width: 100%;
     height: auto;
     border-radius: 8px;
     object-fit: cover;
 }
 
-.Blog .Blog-list .Blog-list-item .Blog-content {
+.My-Project .My-Project-list .My-Project-list-item .My-Project-content {
     padding-left: 20px;
     flex: 2;
 }
 
-.Blog .Blog-list .btn-group {
+.My-Project .My-Project-list .btn-group {
     text-align: right;
     margin-bottom: 20px;
 }
 
-.Blog .Blog-list .btn-group .btn-edit,
-.Blog .Blog-list .btn-group .btn-post {
-    padding: 5px 10px;
-    border: 0;
-    border-radius: 4px;
-    cursor: pointer;
+.My-Project .My-Project-list .btn-group .btn-edit,
+.My-Project .My-Project-list .btn-group .btn-post {
+    background-color: #f7f7f7;
+    color: #333;
+    padding: 10px;
+    width: 30%;
+    font-size: 16px;
+    border-radius: 10px;
+    text-decoration: none;
+    text-align: center;
+    border: 2px solid #333;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.Blog .Blog-list .btn-group .btn-edit {
+.My-Project .My-Project-list .btn-group .btn-edit .btn-post {
     background: #f7f7f7;
 }
 
-.Blog .Blog-list .btn-group .btn-post {
-    background: #333;
-    color: #fff;
-}
-
-.Blog .Blog-list .btn-group .btn-edit:hover,
-.Blog .Blog-list .btn-group .btn-post:hover {
+.My-Project .My-Project-list .btn-group .btn-edit:hover,
+.My-Project .My-Project-list .btn-group .btn-post:hover {
     background-color: #333;
     color: #fff;
 }
 
-.Blog .Blog-list h1 a {
+.My-Project .My-Project-list h1 a {
+    color: black;
     text-decoration: none;
-    color: #000;
 }
 
-.Blog .Blog-list .detail-Blog-content {
+.My-Project .My-Project-list .detail-My-Project-content {
     font-weight: 300;
     font-size: 14px;
     line-height: 20px;
 }
 
-.Blog .Blog-list .Blog-list-item p {
+.My-Project .My-Project-list .My-Project-list-item p {
     margin-top: 20px;
     font-weight: normal;
     font-size: 16px;
@@ -204,24 +250,25 @@
     text-align: justify;
 }
 
-.Blog-detail {
+.My-Project-detail {
     display: flex;
     justify-content: center;
 }
 
-.Blog-detail-container {
+.My-Project-detail-container {
     width: 80%;
     max-width: 800px;
     margin: 40px 0;
 }
 
-.Blog-detail-container img {
+.My-Project-detail-container img {
     width: 100%;
     height: auto;
     border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-.Blog-detail-container h1 {
+.My-Project-detail-container h1 {
     font-style: normal;
     font-weight: 800;
     font-size: 36px;
@@ -229,14 +276,14 @@
     margin-bottom: 15px;
 }
 
-.Blog-detail-container .author {
+.My-Project-detail-container .author {
     font-weight: 100;
     font-size: 18px;
     line-height: 120%;
     margin-bottom: 20px;
 }
 
-.Blog-detail-container p {
+.My-Project-detail-container p {
     margin-top: 40px;
     font-style: normal;
     font-weight: normal;
@@ -268,7 +315,67 @@
     margin-right: 8px;
 }
 
-
 .button-group {
     text-align: center;
+}
+
+.nav-collapse {
+    width: 30%;
+}
+
+#hamburger-button {
+    display: none;
+}
+
+.hamburger-nav-container {
+    font-size: 23px;
+    list-style-type: none;
+    display: none;
+}
+
+.hamburger-nav-container a {
+    color: white;
+    border: 2px solid white;
+    background-color: #9a9a9a;
+    text-align: center;
+    padding: 10px;
+}
+
+.hamburger-nav-container .active {
+    text-decoration: none;
+    color: #fff;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border: 1px solid #fff;
+}
+
+@media only screen and (max-width: 600px) {
+    .profile-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .right {
+        margin-top: 20px;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .nav-collapse {
+        display: none;
+        width: 5px;
+    }
+    
+    #hamburger-button {
+        display: block;
+    }
+
+    .hamburger-nav-container {
+        font-size: 23px;
+        display: none;
+        flex-direction: column;
+    }
 }
