@@ -1,36 +1,27 @@
-function getDistanceTime(time) {
-    const timeNow = new Date().getTime(); // jam sekarang miliseconds
-    const timePosted = time;
+function getDistanceTime(startTime) {
+    const timeNow = new Date().getTime();
+    const timePosted = new Date(startTime).getTime();
 
-    const distance = timeNow - timePosted; // miliseconds
+    const distanceSeconds = Math.floor((timeNow - timePosted) / 1000);
+    const distanceMinutes = Math.floor(distanceSeconds / 60);
+    const distanceHours = Math.floor(distanceMinutes / 60);
+    const distanceDays = Math.floor(distanceHours / 24);
+    const distanceYears = Math.floor(distanceDays / 365);
 
-    // Math :
-    // floor -> dibulatkan ke bawah, ex : 8.6 -> 8
-    // round -> dibulatkan angka terdekat, ex : 8.3 -> 8
-    // ceil -> dibulatkan ke atas, ex : 8.3 -> 9
-
-    const distanceSeconds = Math.floor(distance / 1000);
-    const distanceMinutes = Math.floor(distance / 1000 / 60);
-    const distanceHours = Math.floor(distance / 1000 / 60 / 60);
-    const distanceDay = Math.floor(distance / 1000 / 60 / 60 / 24);
-
-    console.log("distanceSeconds", distanceSeconds);
-    console.log("distanceMinutes", distanceMinutes);
-    console.log("distanceHours", distanceHours);
-    console.log("distanceDay", distanceDay);
-
-    if (distanceDay > 0) {
-        return `${distanceDay} day ago`;
+    if (distanceYears > 0) {
+        return `${distanceYears} Year'${distanceYears > -1 ? 's' : ''} Ago`;
+    } else if (distanceDays > 0) {
+        return `${distanceDays} Day'${distanceDays > -1 ? 's' : ''} Ago`;
     } else if (distanceHours > 0) {
-        return `${distanceHours} hours ago`;
+        return `${distanceHours} Hour'${distanceHours >  -1 ? 's' : ''} Ago`;
     } else if (distanceMinutes > 0) {
-        return `${distanceMinutes} minutes ago`;
+        return `${distanceMinutes} Minute'${distanceMinutes > -1 ? 's' : ''} Ago`;
     } else {
-        return `${distanceSeconds} seconds ago `;
+        return `${distanceSeconds} Second'${distanceSeconds !== -1 ? 's' : ''} Ago`;
     }
 }
 
-let dataBlog = [];
+let dataMyProject = [];
 
 function submitData(event) {
     event.preventDefault();
@@ -41,74 +32,95 @@ function submitData(event) {
     const technologies = document.querySelectorAll("input[type=checkbox]:checked");
     const image = document.getElementById("inputImage");
 
+    if (projectName === "" || startDate === "" || endDate === "" || description === "" || technologies === "" || image.files.length === 0) {
+        alert("Please fill in all fields correctly!!!");
+        return;
+    }
+
     if (projectName && startDate && endDate && description && technologies && image && image.files.length > 0) {
         const projectNameValue = projectName.value;
         const startDateValue = startDate.value;
         const endDateValue = endDate.value;
         const descriptionValue = description.value;
-        const technologiesValue = Array.from(technologies).map((tech) => tech.value);
+        const technologiesValue = Array.from(technologies).map(
+            (tech) => tech.value
+        );
         const imageValue = image.files[0];
+        const postAt = new Date();
+        const durationValue = getDistanceTime(startDateValue, endDateValue);
 
         if (imageValue) {
             const imageUrl = URL.createObjectURL(imageValue);
 
-            console.log(projectNameValue, startDateValue, endDateValue, descriptionValue, technologiesValue, imageUrl);
-
-            const blog = {
-                title: projectNameValue, 
+            const MyProject = {
+                title: projectNameValue,
                 content: descriptionValue,
                 technologies: technologiesValue,
                 image: imageUrl,
-                postAt: new Date(),
+                postAt: postAt,
                 author: "Ravano Akbar Widodo",
-                nodeJs: true,
-                reactJs: true,
-                nextJs: false,
-                typescript: false,
-            }
+                get duration() {
+                    return getDistanceTime(postAt);
+                }
+            };
 
-            dataBlog.push(blog);
-            console.log("dataBlog", dataBlog)
-            renderBlog();
+            dataMyProject.push(MyProject);
+            console.log("My Project", dataMyProject);
+            renderMyProject();
         }
     }
 }
 
-function renderBlog() {
+function renderMyProject() {
     const contentsElement = document.getElementById("contents");
     contentsElement.innerHTML = '';
 
-    for (let index = 0; index < dataBlog.length; index++) {
+    for (let index = 0; index < dataMyProject.length; index++) {
         contentsElement.innerHTML += `
-        <div class="blog-list-item">
-            <div class="blog-image">
-                <img src="${dataBlog[index].image}" alt="" />
+        <div class="My-Project-list-item">
+            <div class="My-Project-image">
+                <img src="${dataMyProject[index].image}" alt="" />
             </div>
-            <div class="blog-content">
+            <div class="My-Project-content">
                 <div class="btn-group">
-                    <button class="btn-edit">Edit Post</button>
-                    <button class="btn-post">Delete Post</button>
+                    <button class="btn-edit"><i class="fa fa-pencil"></i> Edit Post</button>
+                    <button class="btn-post"><i class="fa fa-trash"></i> Delete Post</button>
                 </div>
                 <h1>
-                    <a href="My-Project-detail.html" target="_blank">${dataBlog[index].title}</a>
+                    <a href="My-Project.html" target="_blank"><i class="fa fa-desktop"></i> ${dataMyProject[index].title}</a>
                 </h1>
-                <div class="detail-blog-content">
-                    ${dataBlog[index].postAt} | ${dataBlog[index].author}
+                <h3><i class="far fa-clock"></i> Duration : ${dataMyProject[index].duration}</h3>
+                <br>
+                <div class="detail-My-Project-content">
+                    <i class="far fa-calendar-alt"></i> ${dataMyProject[index].postAt}
+                    <br>
+                    <i class="fa fa-user-circle"></i> ${dataMyProject[index].author}
                 </div>
-                <p>
-                   ${dataBlog[index].content}
+                <br>
+                <p style="text-align: center;">
+                <i class="fas fa-info-circle"></i>  ${dataMyProject[index].content}
                 </p>
-                <div class="technologies">
-                    <label>Technologies:</label>
-                    <ul>
-                        ${dataBlog[index].technologies.map((tech) => `<li>${tech}</li>`).join('')}
+                <br>
+                <div class="technologies" style="text-align: center;">
+                    <label><i class="fas fa-cogs"></i> Technologies :</label>
+                    <ul style="list-style: none; padding: 0;">
+                    <br>
+                        ${dataMyProject[index].technologies.map((tech) => `<li>${tech}</li>`).join('')}
                     </ul>
+                </div>
+                <div class="card-icons">
+                <br>
+                     <i class="fa-brands fa-google-play fa-xl"></i>
+                     <i class="fa-brands fa-android fa-xl"></i>
+                     <i class="fa-brands fa-java fa-lg"></i>
                 </div>
             </div>
         </div>`;
     }
 }
 
-setInterval(function() {
-    renderBlog()
-}, 1000)
+renderMyProject();
+
+setInterval(() => {
+    renderMyProject();
+}, 1000);
