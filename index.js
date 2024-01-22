@@ -1,7 +1,16 @@
+'use strict';
+
 const express = require('express');
 const path = require('path');
+const bcrypt = require("bcrypt");
+const session = require("express-session");
+const flash = require("express-flash");
 const app = express();
 const port = 7000;
+
+const { development } = require("./src/assets/config/config.json");
+const { Sequelize, QueryTypes } = require("sequelize");
+const SequelizePool = new Sequelize(development);
 
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, 'src/views'));
@@ -26,6 +35,21 @@ app.post('/update-My-Project/:id', updateMyProject);
 app.get('/delete-My-Project/:id', deleteMyProject);
 app.post('/delete-My-Project/:id', deleteMyProject);
 
+app.use(
+    session({
+      cookie: {
+        httpOnly: true,
+        secure: false,
+        maxAge: 1 * 60 * 60 * 1000,
+      },
+      resave: false,
+      store: session.MemoryStore(),
+      secret: "session-storage",
+      saveUninitialized: true,
+    })
+  );
+  app.use(flash());
+
 const models = require('./src/assets/models');
 Object.values(models).forEach((model) => {
   if (model.associate) {
@@ -38,8 +62,15 @@ app.use((req, res, next) => {
     next();
   });  
 
-function home(req, res) {
-    res.render('index');
+async function home(req, res) {
+  const projectNew = await SequelizePool.query("SELECT * FROM myproject");
+  const titlePage = "Home";
+
+  // console.log(my-projectNew[0]);
+  res.render("index", {
+    data: projectNew[0],
+    titlePage,
+  });
 }
 
 function contact(req, res) {
@@ -88,17 +119,16 @@ function testimonials(req, res) {
     res.render('testimonial');
 }
 
-function updateMyProjectView(req, res) {
+async function updateMyProjectView(req, res) {
     const { id } = req.params;
-    const editProjectData = data[+id];
-
-    if (editProjectData) {
-        editProjectData.id = id;
-        res.render('update-My-Project', { data: editProjectData });
-    } else {
-        res.redirect('/My-Project'); 
-    }
-}
+    const data = await SequelizePool.query(
+      "SELECT * FROM myproject where id = " + id
+    );
+  
+    res.render("update-My-Project", {
+      data: data[0][0],
+    });
+  }
 
 function updateMyProject(req, res) {
     const { id } = req.params;
@@ -120,16 +150,14 @@ function updateMyProject(req, res) {
     }
 }
 
-function deleteMyProject(req, res) {
+async function deleteMyProject(req, res) {
     const { id } = req.params;
-    const index = +id;
-
-    if (index >= 0 && index < data.length) {
-        data.splice(index, 1);
-    }
-
-    res.redirect('/My-Project');
-}
+    const data = await SequelizePool.query(
+      "DELETE FROM myproject where id = " + id
+    );
+  
+    res.redirect("/");
+  }
 
 app.listen(port, () => {
     console.log(`Server Berjalan Di Port ${port}`);
