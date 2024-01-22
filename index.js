@@ -74,7 +74,7 @@ function addMyProjectView(req, res) {
 
 async function addMyProject(req, res) {
   try {
-    const { projectName, startDate, endDate, description, techIcon } = req.body;
+    const { projectName, startDate, endDate, description, duration} = req.body;
 
     const dateOne = new Date(startDate);
     const dateTwo = new Date(endDate);
@@ -94,8 +94,8 @@ async function addMyProject(req, res) {
     }
 
     await SequelizePool.query(
-      `INSERT INTO myproject(project_name, start_date,end_date,description,technologies, "createdAt", "updatedAt",distance) 
-      VALUES ('${projectName}','${startDate}','${endDate}' ,'${description}','{${techIcon}}',NOW(), NOW(), '${distance}')`
+      `INSERT INTO myproject(project_name, start_date,end_date,description,technologies, "createdAt", "updatedAt",duration) 
+      VALUES ('${projectName}','${startDate}','${endDate}' ,'${description}','{${techIcon}}',NOW(), NOW(), '${duration}')`
     );
     res.redirect('/');
   } catch (error) {

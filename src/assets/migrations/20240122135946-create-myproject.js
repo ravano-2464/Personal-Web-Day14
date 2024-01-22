@@ -10,7 +10,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      project_Name: {
+      project_name: {
         allowNull: false,
         type: Sequelize.STRING
       },
