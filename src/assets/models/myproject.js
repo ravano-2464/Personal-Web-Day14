@@ -1,7 +1,6 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model, Sequelize } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class myproject extends Model {
     /**
@@ -10,20 +9,44 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      // You can define associations here if needed
     }
   }
-  myproject.init({
-    project_Name: DataTypes.STRING,
-    start_date: DataTypes.STRING,
-    end_date: DataTypes.STRING,
-    description: DataTypes.STRING,
-    technologies: DataTypes.STRING,
-    image: DataTypes.STRING,
-    duration: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'myproject',
-  });
-  return myproject;
+
+  myproject.init(
+    {
+      project_name: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      start_date: {
+        type: Sequelize.DATEONLY,
+        allowNull: false,
+      },
+      end_date: {
+        type: Sequelize.DATEONLY,
+        allowNull: false,
+      },
+      description: {
+        type: Sequelize.TEXT,
+        allowNull: false,
+      },
+      technologies: {
+        type: Sequelize.ARRAY(Sequelize.STRING),
+        allowNull: true, // Adjust as needed
+      },
+      duration: {
+        type: Sequelize.STRING,
+        allowNull: true, // Adjust as needed
+      },
+    },
+    {
+      sequelize,
+      modelName: 'myproject', // Use PascalCase for the model name
+      tableName: 'myproject', // Optional: explicitly set the table name
+      timestamps: true, // Optional: include timestamps (createdAt, updatedAt)
+    }
+  );
+
+  return MyProject;
 };
