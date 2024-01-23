@@ -11,6 +11,8 @@ const port = 7000;
 const { development } = require('./src/assets/config/config.json');
 const SequelizePool = new Sequelize(development);
 
+app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'src/views'));
 app.use('/assets', express.static(path.join(__dirname, 'src/assets')));
 app.use(express.urlencoded({ extended: false }));
 app.use(
@@ -39,9 +41,6 @@ app.get('/update-My-Project/:id', updateMyProjectView);
 app.post('/update-My-Project/:id', updateMyProject);
 app.get('/delete-My-Project/:id', deleteMyProject);
 app.post('/delete-My-Project/:id', deleteMyProject);
-
-app.set('view engine', 'hbs');
-app.set('views', path.join(__dirname, 'src/views'));
 
 const models = require('./src/assets/models/myproject.js');
 Object.values(models).forEach((model) => {
@@ -77,8 +76,7 @@ async function MyProject(req, res) {
   const projectNew = await SequelizePool.query('SELECT * FROM myproject');
 
   res.render('my-project', {
-    data: titlePage,
-    data: projectNew[0], 
+    data: projectNew[0]
   });
 }
 
@@ -89,10 +87,7 @@ function addMyProjectView(req, res) {
 async function addMyProject(req, res) {
   
   try {
-    const {projectName, startDate, endDate, description, techIcon, duration} = req.body;
-
-    const data = req.body
-    console.log(data)
+    const {title, startDate, endDate, description, techIcon, duration} = req.body;
 
     const dateOne = new Date(startDate);
     const dateTwo = new Date(endDate);
@@ -113,7 +108,7 @@ async function addMyProject(req, res) {
 
     await SequelizePool.query(
       `INSERT INTO myproject(project_name, start_date,end_date,description,technologies, "createdAt", "updatedAt",duration) 
-      VALUES ('${projectName}','${startDate}','${endDate}' ,'${description}','{${techIcon}}',NOW(), NOW(), '${duration}')`
+      VALUES ('${title}','${startDate}','${endDate}' ,'${description}','{${techIcon}}',NOW(), NOW(), '${duration}')`
     );
     res.redirect('/My-Project');
   } catch (error) {
@@ -127,8 +122,7 @@ async function MyProjectDetail(req, res) {
   const data = await SequelizePool.query('SELECT * FROM myproject where id = ' + id);
 
   res.render('My-Project-detail', {
-    data: data[0][0],
-    titlePage,
+    data:[0][0]
   });
 }
 
@@ -141,7 +135,7 @@ async function updateMyProjectView(req, res) {
   const data = await SequelizePool.query('SELECT * FROM myproject where id = ' + id);
 
   res.render('update-My-Project', {
-    data: data[0][0],
+    data: data[1][1],
   });
 }
 
@@ -155,14 +149,14 @@ async function updateMyProject(req, res) {
     description='${description}', "updatedAt"=now(), technologies='{${technologiesArray}}' where id = ${id}`
   );
 
-  res.redirect('/');
+  res.redirect('/My-Project');
 }
 
 async function deleteMyProject(req, res) {
   const { id } = req.params;
   await SequelizePool.query('DELETE FROM myproject where id = ' + id);
 
-  res.redirect('/');
+  res.redirect('/My-Project');
 }
 
 app.listen(port, () => {
