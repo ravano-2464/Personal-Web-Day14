@@ -6,18 +6,15 @@ const bcrypt = require('bcrypt');
 const app = express();
 const port = 7000;
 
-// sequelize config
 const { development } = require('./src/assets/config/config.json');
 const SequelizePool = new Sequelize(development);
 
-// use handlebars for template engine
 app.set('view engine', 'hbs');
 app.set('views', 'src/views');
 
 app.use('/assets', express.static('src/assets'));
-app.use(express.urlencoded({ extended: false })); // body parser
+app.use(express.urlencoded({ extended: false }));
 
-// middleware session
 app.use(session({
     cookie: {
         httpOnly: true,
@@ -37,7 +34,7 @@ app.get('/My-Project', MyProject);
 app.get('/My-Project-detail/:id', MyProjectDetail);
 app.get('/add-My-Project', addMyProject);
 app.post('/My-Project', handlePostMyProject);
-app.get('/delete/:id', handleDeleteMyProject);
+app.get('/delete-My-Project/:id', handleDeleteMyProject);
 app.get('/update-My-Project/:id', editMyProject);
 app.get('/register', formRegister);
 app.post('/register', addRegister);
@@ -90,20 +87,40 @@ async function MyProject(req, res) {
     }
 }
 
-function MyProjectDetail(req, res) {
-    const { id } = req.params;
-    res.render('My-Project-detail', { data: dataDetail });
+async function MyProjectDetail(req, res) {
+  const { id } = req.params;
+
+  try {
+      const query = await SequelizePool.query(`SELECT * FROM myproject WHERE id = ${id}`, { type: QueryTypes.SELECT });
+
+      if (query.length === -1) {
+          res.status(404).send('Project not found');
+          return;
+      }
+
+      const dataDetail = {
+          ...query[0],
+          author: "Megawati",
+          image: "https://img.freepik.com/free-photo/modern-office-space-with-desktops-with-modern-computers-created-with-generative-ai-technology_185193-110089.jpg?w=826&t=st=1705553908~exp=1705554508~hmac=e65ecda5f1b0cc049b17c786b0674845bdd02f9ac3dcda91ed3ae13847e2c389"
+      };
+
+      res.render('My-Project-detail', { data: dataDetail });
+  } catch (error) {
+      console.error('Error:', error);
+      res.status(500).send('Internal Server Error');
+  }
 }
 
+
 function addMyProject(req, res) {
-    const addMyProjectTitle = "Add My-Project";
+    const addMyProjectTitle = "Add My Project";
     res.render("add-My-Project", { data: addMyProjectTitle });
 }
 
 async function handlePostMyProject(req, res) {
     try {
         const { title, content } = req.body;
-        await SequelizePool.query(`INSERT INTO myproject(project_name, content, "createdAt", "updatedAt") VALUES ('${title}','${content}', NOW(), NOW())`);
+        await SequelizePool.query(`INSERT INTO myproject(project_name, start_date, description, "createdAt", "updatedAt") VALUES ('${title}','${content}', NOW(), NOW())`);
 
         res.redirect('/My-Project');
     } catch (error) {
@@ -138,7 +155,7 @@ async function addRegister(req, res) {
         const salt = 10;
 
         bcrypt.hash(password, salt, async (err, hashPassword) => {
-            await SequelizePool.query(`INSERT INTO users (name, email, password, "createdAt", "updatedAt") VALUES ('${name}','${email}','${hashPassword}', NOW(), NOW())`);
+            await SequelizePool.query(`INSERT INTO user (name, email, password, "createdAt", "updatedAt") VALUES ('${name}','${email}','${hashPassword}', NOW(), NOW())`);
         });
         res.redirect('/login');
     } catch (error) {
@@ -155,7 +172,7 @@ async function isLogin(req, res) {
     try {
         const { email, password } = req.body;
 
-        const checkEmail = await SequelizePool.query(`SELECT * FROM users WHERE email = '${email}'`, { type: QueryTypes.SELECT });
+        const checkEmail = await SequelizePool.query(`SELECT * FROM user WHERE email = '${email}'`, { type: QueryTypes.SELECT });
 
         if (!checkEmail.length) {
             req.flash('failed', 'Email is not registered');
