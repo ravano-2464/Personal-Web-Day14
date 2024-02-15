@@ -6,18 +6,22 @@ function submitData(e) {
   const subject = document.getElementById("select").value;
   const message = document.getElementById("floatingTextarea2").value;
 
-   if (name === "") {
-        alert('Name Must Be Filled Out!!!');
-    } else if (email === "") {
-        alert('Email Must Be Filled Out!!!');
-    } else if (phoneNumber === "") {
-        alert('Phone Number Must Be Filled Out!!!');
-    } else if (subject === "") {
-        alert('Subject Must Be Filled Out!!!');
-    } else if (message === "") {
-        alert('Message Must Be Filled Out!!!');
-    } else {
-}
+  if (name === "") {
+    alert('Name Must Be Filled Out!!!');
+    return;
+  } else if (email === "") {
+    alert('Email Must Be Filled Out!!!');
+    return;
+  } else if (phoneNumber === "") {
+    alert('Phone Number Must Be Filled Out!!!');
+    return;
+  } else if (subject === "") {
+    alert('Subject Must Be Filled Out!!!');
+    return;
+  } else if (message === "") {
+    alert('Message Must Be Filled Out!!!');
+    return;
+  }
 
   console.log(name);
   console.log(email);
@@ -26,7 +30,7 @@ function submitData(e) {
   console.log(message);
 
   let a = document.createElement("a");
-  console.log(`Name: ${name}\nEmail: ${email}\nPhone: ${phoneNumber}\nSubject: ${subject}\nMessage: ${message}`);
+  console.log(`exampleInputName: ${name}\nexampleInputEmail: ${email}\nexampleInputNumber: ${phoneNumber}\nselect: ${subject}\nfloatingTextarea2: ${message}`);
   a.href = `mailto:ravanoganteng123@gmail.com?subject=${subject}&body=${encodeURIComponent(
     `${message}, nama saya ${name}, kontak saya di ${email}`
   )}`;
