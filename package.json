@@ -1,7 +1,7 @@
 {
-  "name": "day-11",
+  "name": "personal-web-day-14",
   "version": "1.0.0",
-  "description": "personal web in local",
+  "description": "Personal Web Day 14",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
